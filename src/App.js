@@ -1,29 +1,69 @@
 import React, { Component } from 'react';
+import Forms from './Forms';
 
-// Component listens to state & props update to re-render
 export default class App extends Component {
 
-  // React is a One-Way data binding !== Two ways data binding
+
+  /**
+   * Lists & Keys
+   */
 
   constructor() {
     super();
     this.state = {
-      isVisible: true
+      books: [
+        {
+          id: 'xamd1',
+          title: 'The Prince',
+          author: 'Niccolo Machiavelli',
+          price: '20$',
+        },
+        {
+          id: 'abcg',
+          title: 'The Great Gatsby',
+          author: 'F. Scott Fitzgerald',
+          price: '10$',
+        },
+        {
+          id: 'rrvh',
+          title: 'Digital Fortress',
+          author: 'Dan Brown',
+          price: '100$',
+        }
+      ]
     }
   }
 
-  handleToggleShow = () => {
-    this.setState({
-      isVisible: !this.state.isVisible
-    })
+  // 0 1 2 3 4 5 6 7 8 9
+  // a b c d e f g h i j
+
+
+  // Key = element -> update - remove - add
+
+  renderList = (books) => {
+    return books.map(book => (
+      <li key={book.id}>
+        <b>Title: </b>{ book.title }
+        <br />
+        <b>Author: </b>{ book.author }
+        <br />
+        <b>Price: </b>{ book.price }
+        <hr />
+      </li>
+    ))
   }
 
   render() {
     return (
       <div>
-        <button onClick={ this.handleToggleShow }>{ this.state.isVisible ? 'Hide' : 'Show' } image</button>
-        <br />
-        { this.state.isVisible && <img src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg" width="70%" alt="" /> }
+        <Forms books={ this.state.books } />
+      {/* 
+      <ul>
+      //   {
+      //     // this.renderList(this.state.books)
+      //   }
+      // </ul>
+      */}
       </div>
     )
   }
