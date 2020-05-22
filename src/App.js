@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Forms from './Forms';
+import CompoOne from './CompoOne';
+import CompoTwo from './CompoTwo';
 
 export default class App extends Component {
-
 
   /**
    * Lists & Keys
@@ -30,41 +30,46 @@ export default class App extends Component {
           author: 'Dan Brown',
           price: '100$',
         }
-      ]
+      ],
+      bookId: ''
     }
   }
 
-  // 0 1 2 3 4 5 6 7 8 9
-  // a b c d e f g h i j
+  getTargetBook = (bookId) => {
+    this.setState({
+      bookId
+    })
+  }
 
-
-  // Key = element -> update - remove - add
-
-  renderList = (books) => {
-    return books.map(book => (
-      <li key={book.id}>
-        <b>Title: </b>{ book.title }
-        <br />
-        <b>Author: </b>{ book.author }
-        <br />
-        <b>Price: </b>{ book.price }
-        <hr />
-      </li>
-    ))
+  getBook = () => {
+    return this.state.books.find(({id}) => id === this.state.bookId);
   }
 
   render() {
     return (
       <div>
-        <Forms books={ this.state.books } />
-      {/* 
-      <ul>
-      //   {
-      //     // this.renderList(this.state.books)
-      //   }
-      // </ul>
-      */}
+        <CompoTwo books={ this.state.books } onBookChange={ this.getTargetBook } />
+        <CompoOne books={ this.state.books } bookId={ this.state.bookId } />
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <h2>Book Title: { !!this.state.bookId && this.getBook().title }</h2>
       </div>
     )
   }
 }
+
+
+
+/*
+
+_____ App.js
+     |______ Component 1
+     |      |___ state
+     |______ Component 2
+            |___ state
+
+
+*/
