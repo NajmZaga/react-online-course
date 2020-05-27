@@ -1,48 +1,35 @@
 import React, { Component } from 'react';
+import { books, getBookById } from './../../utils/books-utils';
 
 export default class Book extends Component {
 
   constructor () {
     super();
     this.state = {
-      books: [
-        {
-          id: '1',
-          title: "The Da Vinci Code",
-          price: "10$",
-        },
-        {
-          id: '2',
-          title: "Origin",
-          price: "70$",
-        },
-        {
-          id: '3',
-          title: "The Lost Symbol",
-          price: "40$",
-        }
-      ],
       targetBook: {}
     }
   }
 
-  getBookById = (id, bookList) => bookList.find(book => book.id === id);
-
   componentDidMount() {
     this.setState({
       ...this.state,
-      targetBook: this.getBookById(this.props.match.params.id, this.state.books)
+      targetBook: getBookById(this.props.match.params.id, books)
     });
   }
+
+  // React Fragments:
+  // <Fragment></Fragment>: Long hand
+  // <></>: Short hand
 
   render() {
 
     if (!this.props.match.params.id) return <h1>No selected book</h1>
 
     return (
-      <div>
-        <b>Book page: { !!this.state.targetBook && this.state.targetBook.title }</b>
-      </div>
+      <>
+        <div>Book title: { !!this.state.targetBook && this.state.targetBook.title }</div>
+        <div>Book price: { !!this.state.targetBook && this.state.targetBook.price }</div>
+      </>
     )
   }
 }
