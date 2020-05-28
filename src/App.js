@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-
-import Routes from './Routes';
-import Navigation from './components/Navigation';
+import { Container } from './components/Container';
+import './App.css';
+import { AppContextProvider, Consumer } from './components/Context';
 
 export default class App extends Component {
 
   render() {
-
     return (
-      <Router>
-        <Navigation />
-        <Routes />
-      </Router>
+      <AppContextProvider>
+        <Consumer>
+          {
+            (data) => (
+              <Container
+                theme={ data.theme }
+                onChangeTheme={ data.themeUpdater }
+              />
+            )
+          }
+        </Consumer>
+      </AppContextProvider>
     )
   }
 }
