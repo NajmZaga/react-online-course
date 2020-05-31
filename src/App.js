@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { Container } from './components/Container';
 import './App.css';
-import { AppContextProvider, Consumer } from './components/Context';
+import Facture from './components/Facture';
 
-export default class App extends Component {
+class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      isBoolean: true,
+      isString: "Hello there",
+      isNumber: 124
+    }
+  }
 
   render() {
     return (
-      <AppContextProvider>
-        <Consumer>
-          {
-            (data) => (
-              <Container
-                theme={ data.theme }
-                onChangeTheme={ data.themeUpdater }
-              />
-            )
-          }
-        </Consumer>
-      </AppContextProvider>
+      <div>
+        <Facture
+          username="Jihen"
+        />
+      </div>
     )
   }
 }
+
+export default App;
