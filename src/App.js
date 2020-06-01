@@ -1,27 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import Facture from './components/Facture';
+import { FuncCompo } from './components/FuncCompo';
 
-class App extends Component {
+export const App = (props) => {
 
-  constructor() {
-    super();
-    this.state = {
-      isBoolean: true,
-      isString: "Hello there",
-      isNumber: 124
-    }
-  }
+  //    count    - seCount
+  //    variable - function (setState)
+  //    [variable, setVariable]
+  const [count, setCount] = useState(0);
+  const [toggle, setToggle] = useState(false);
 
-  render() {
-    return (
-      <div>
-        <Facture
-          username="Jihen"
-        />
-      </div>
-    )
-  }
+  console.log(props);
+
+  useEffect(() => {
+    increment();
+  }, [toggle]);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const toggler = () => {
+    setToggle(!toggle);
+  };
+  
+  return (
+    <div>
+      <h1>count: { count }</h1>
+      <button onClick={ increment }>Increment</button>
+      <button onClick={ toggler }>Toggle</button>
+    </div>
+  )
 }
-
-export default App;
